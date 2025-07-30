@@ -1,18 +1,16 @@
 import React from 'react'
-import Header from '@/components/Header'
 
 const Hero = () => {
   return (
     <div className="w-full h-screen fixed top-0 left-0 overflow-hidden">
       <video 
-        className="absolute inset-0 w-full h-full object-cover scale-120 translate-x-8 -z-50"
+        className="absolute inset-0 w-full h-full object-cover scale-120 translate-x-8 z-0"
         src="/assets/herobg.mp4"
         autoPlay 
         loop 
         muted
       />
-     <div className="absolute inset-0 p-3 flex flex-col">
-         <Header />
+     <div className="absolute inset-0 p-3 flex flex-col z-10">
          <div className="flex-1 w-full flex flex-col justify-end px-16">
             <h1 className="text-8xl w-[40%] tracking-tighter">
                 WE KEEP IT TOGETHER UNDER PRESSURE
