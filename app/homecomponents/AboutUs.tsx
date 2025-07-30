@@ -5,7 +5,7 @@ const AboutUs = () => {
   return (
     <div className="w-full p-4 md:p-8 lg:p-16 bg-white flex flex-col lg:flex-row gap-6 lg:gap-10 items-center mt-[100vh] relative z-10">
        <div className="bg-blend-multiply bg-cover w-full lg:w-1/3 h-[300px] md:h-[400px] lg:h-[740px]" style={{
-        backgroundImage: 'url(/assets/aboutus.jpg)',
+        backgroundImage: 'url(/assets/aboutus.jpeg)',
        }}>
         
 
