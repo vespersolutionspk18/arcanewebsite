@@ -2,25 +2,27 @@
 import Button from '@/components/Button'
 import Image from 'next/image'
 import React, { useState, useEffect } from 'react'
+import { HiMenu, HiX } from 'react-icons/hi'
 
 const Header = () => {
   const [leftDarkMode, setLeftDarkMode] = useState(false)
   const [centerDarkMode, setCenterDarkMode] = useState(false)
   const [rightDarkMode, setRightDarkMode] = useState(false)
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
   useEffect(() => {
-    const detectPointBrightness = (x, y) => {
+    const detectPointBrightness = (x: number, y: number) => {
       try {
         // Get all elements at this point
         const elementsAtPoint = document.elementsFromPoint(x, y)
         
         for (const element of elementsAtPoint) {
           if (element.closest('[data-header]')) continue
-          if (element === document.html || element === document.body) continue
+          if (element === document.documentElement || element === document.body) continue
           
           // For image elements, analyze the actual pixels
           if (element.tagName.toLowerCase() === 'img') {
-            return analyzeImageBrightness(element)
+            return analyzeImageBrightness(element as HTMLImageElement)
           }
           
           // For elements with background images
@@ -31,7 +33,7 @@ const Header = () => {
             // Try to analyze background image
             const imageUrl = bgImage.match(/url\(['"]?(.+?)['"]?\)/)?.[1]
             if (imageUrl) {
-              const img = new Image()
+              const img = document.createElement('img') as HTMLImageElement
               img.crossOrigin = 'anonymous'
               img.src = imageUrl
               if (img.complete) {
@@ -43,7 +45,7 @@ const Header = () => {
           }
           
           // For solid background colors
-          let backgroundColor = style.backgroundColor
+          const backgroundColor = style.backgroundColor
           if (backgroundColor && backgroundColor !== 'rgba(0, 0, 0, 0)' && backgroundColor !== 'transparent') {
             const rgbMatch = backgroundColor.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)/)
             if (rgbMatch) {
@@ -57,12 +59,12 @@ const Header = () => {
         // Fallback
         return false
         
-      } catch (error) {
+      } catch {
         return false
       }
     }
     
-    const analyzeImageBrightness = (imgElement) => {
+    const analyzeImageBrightness = (imgElement: HTMLImageElement) => {
       try {
         // Check if image is loaded
         if (!imgElement.complete || imgElement.naturalWidth === 0) {
@@ -71,6 +73,7 @@ const Header = () => {
         
         const canvas = document.createElement('canvas')
         const ctx = canvas.getContext('2d')
+        if (!ctx) return false
         
         // Use smaller sample for performance
         const sampleSize = 20
@@ -100,60 +103,12 @@ const Header = () => {
         const averageBrightness = totalBrightness / pixelCount
         return averageBrightness > 140 // Slightly higher threshold for images
         
-      } catch (error) {
-        return false
-      }
-    }
-    
-    const analyzeImageUrlBrightness = (imageUrl) => {
-      try {
-        const img = new Image()
-        img.crossOrigin = 'anonymous'
-        
-        return new Promise((resolve) => {
-          img.onload = () => {
-            try {
-              const canvas = document.createElement('canvas')
-              const ctx = canvas.getContext('2d')
-              const sampleSize = 50
-              
-              canvas.width = sampleSize
-              canvas.height = sampleSize
-              
-              ctx.drawImage(img, 0, 0, sampleSize, sampleSize)
-              
-              const imageData = ctx.getImageData(0, 0, sampleSize, sampleSize)
-              const data = imageData.data
-              
-              let totalBrightness = 0
-              let pixelCount = 0
-              
-              for (let i = 0; i < data.length; i += 16) {
-                const r = data[i]
-                const g = data[i + 1]
-                const b = data[i + 2]
-                const brightness = (r * 0.299 + g * 0.587 + b * 0.114)
-                totalBrightness += brightness
-                pixelCount++
-              }
-              
-              const averageBrightness = totalBrightness / pixelCount
-              resolve(averageBrightness > 128)
-            } catch (error) {
-              resolve(false)
-            }
-          }
-          
-          img.onerror = () => resolve(false)
-          img.src = imageUrl
-        })
-        
-      } catch (error) {
+      } catch {
         return false
       }
     }
 
-    const detectElementBrightness = (element) => {
+    const detectElementBrightness = (element: Element | null) => {
       if (!element) return false
       
       const rect = element.getBoundingClientRect()
@@ -200,7 +155,7 @@ const Header = () => {
         setLeftDarkMode(logoResult)
         setCenterDarkMode(navResult)
         setRightDarkMode(buttonResult)
-      } catch (error) {
+      } catch {
         // Fallback to simple scroll-based detection
         const heroHeight = window.innerHeight
         const scrollY = window.scrollY
@@ -212,7 +167,7 @@ const Header = () => {
     }
 
     const throttledDetect = (() => {
-      let timeoutId
+      let timeoutId: ReturnType<typeof setTimeout>
       return () => {
         clearTimeout(timeoutId)
         timeoutId = setTimeout(detectBackgroundBrightness, 16) // ~60fps
@@ -232,56 +187,91 @@ const Header = () => {
   }, [])
 
   return (
-    <div data-header className="fixed top-2 left-2 right-2 flex flex-row justify-between p-2 items-center rounded-md overflow-hidden" style={{
-      zIndex: 9999,
-      background: 'rgba(0,0,0,0.1)',
-      backdropFilter: 'blur(4px) saturate(180%) contrast(120%)',
-      WebkitBackdropFilter: 'blur(04px) saturate(180%) contrast(120%)',
-      boxShadow: `
-        inset 0 1px 0 rgba(255,255,255,0.1),
-        inset 0 -1px 0 rgba(0,0,0,0.1),
-        0 4px 12px rgba(0,0,0,0.15)
-      `
-    }}>
-       <div data-logo className="w-1/5 transition-all duration-150 ease-out">
-         <Image 
-           src={leftDarkMode ? "/assets/arcaneb.svg" : "/assets/arcane.svg"} 
-           alt="Arcane Holdings" 
-           width={140} 
-           height={100} 
-         />
-       </div>
-        <div data-nav className={`w-3/5 flex flex-row gap-10 font-medium text-md justify-center transition-colors duration-150 ease-out ${centerDarkMode ? 'text-black' : 'text-white'}`}>
-            <a className={`cursor-pointer transition-colors duration-100 ease-out flex items-center gap-1 ${centerDarkMode ? 'hover:text-gray-600' : 'hover:text-gray-300'}`}>
-              Home
-              
-            </a>
-            <a className={`cursor-pointer transition-colors duration-100 ease-out flex items-center gap-1 ${centerDarkMode ? 'hover:text-gray-600' : 'hover:text-gray-300'}`}>
-              About
-              
-            </a>
-            <a className={`cursor-pointer transition-colors duration-100 ease-out flex items-center gap-1 ${centerDarkMode ? 'hover:text-gray-600' : 'hover:text-gray-300'}`}>
-              Sectors
-              <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-              </svg>
-            </a>
-            <a className={`cursor-pointer transition-colors duration-100 ease-out flex items-center gap-1 ${centerDarkMode ? 'hover:text-gray-600' : 'hover:text-gray-300'}`}>
-              Subsidiaries
-              <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-              </svg>
-            </a>
-            <a className={`cursor-pointer transition-colors duration-100 ease-out flex items-center gap-1 ${centerDarkMode ? 'hover:text-gray-600' : 'hover:text-gray-300'}`}>
-              Careers
-              
-            </a>
-        </div>
-        <div data-button className="w-1/5 flex flex-row gap-3 justify-end transition-all duration-150 ease-out">
-        <Button route="" text="GET IN TOUCH" variant={rightDarkMode ? "black" : "white"}/>
-        </div>
+    <>
+      <div data-header className="fixed top-2 left-2 right-2 flex flex-row justify-between p-2 items-center rounded-md overflow-hidden" style={{
+        zIndex: 9999,
+        background: 'rgba(0,0,0,0.1)',
+        backdropFilter: 'blur(4px) saturate(180%) contrast(120%)',
+        WebkitBackdropFilter: 'blur(04px) saturate(180%) contrast(120%)',
+        boxShadow: `
+          inset 0 1px 0 rgba(255,255,255,0.1),
+          inset 0 -1px 0 rgba(0,0,0,0.1),
+          0 4px 12px rgba(0,0,0,0.15)
+        `
+      }}>
+         <div data-logo className="lg:w-1/5 w-auto transition-all duration-150 ease-out">
+           <Image 
+             src={leftDarkMode ? "/assets/arcaneb.svg" : "/assets/arcane.svg"} 
+             alt="Arcane Holdings" 
+             width={140} 
+             height={100} 
+           />
+         </div>
+         
+         {/* Desktop Navigation */}
+          <div data-nav className={`hidden lg:flex w-3/5 flex-row gap-10 font-medium text-md justify-center transition-colors duration-150 ease-out ${centerDarkMode ? 'text-black' : 'text-white'}`}>
+              <a className={`cursor-pointer transition-colors duration-100 ease-out flex items-center gap-1 ${centerDarkMode ? 'hover:text-gray-600' : 'hover:text-gray-300'}`}>
+                Home
+              </a>
+              <a className={`cursor-pointer transition-colors duration-100 ease-out flex items-center gap-1 ${centerDarkMode ? 'hover:text-gray-600' : 'hover:text-gray-300'}`}>
+                About
+              </a>
+              <a className={`cursor-pointer transition-colors duration-100 ease-out flex items-center gap-1 ${centerDarkMode ? 'hover:text-gray-600' : 'hover:text-gray-300'}`}>
+                Sectors
+                <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </a>
+              <a className={`cursor-pointer transition-colors duration-100 ease-out flex items-center gap-1 ${centerDarkMode ? 'hover:text-gray-600' : 'hover:text-gray-300'}`}>
+                Careers
+              </a>
+          </div>
 
-    </div>
+          {/* Desktop Button */}
+          <div data-button className="hidden lg:flex w-1/5 flex-row gap-3 justify-end transition-all duration-150 ease-out">
+            <Button route="" text="GET IN TOUCH" variant={rightDarkMode ? "black" : "white"}/>
+          </div>
+
+          {/* Mobile Menu Button */}
+          <div className="lg:hidden">
+            <button
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className={`p-2 transition-colors duration-150 ${centerDarkMode ? 'text-black hover:text-gray-600' : 'text-white hover:text-gray-300'}`}
+            >
+              {isMobileMenuOpen ? <HiX size={24} /> : <HiMenu size={24} />}
+            </button>
+          </div>
+      </div>
+
+      {/* Mobile Menu Overlay */}
+      {isMobileMenuOpen && (
+        <div className="fixed inset-0 z-[9998] lg:hidden">
+          <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" onClick={() => setIsMobileMenuOpen(false)} />
+          <div className="absolute top-16 left-2 right-2 bg-white rounded-lg shadow-2xl overflow-hidden">
+            <div className="flex flex-col py-4">
+              <a className="px-6 py-4 text-black hover:bg-gray-100 transition-colors cursor-pointer border-b border-gray-100">
+                Home
+              </a>
+              <a className="px-6 py-4 text-black hover:bg-gray-100 transition-colors cursor-pointer border-b border-gray-100">
+                About
+              </a>
+              <a className="px-6 py-4 text-black hover:bg-gray-100 transition-colors cursor-pointer border-b border-gray-100 flex items-center justify-between">
+                Sectors
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </a>
+              <a className="px-6 py-4 text-black hover:bg-gray-100 transition-colors cursor-pointer border-b border-gray-100">
+                Careers
+              </a>
+              <div className="px-6 py-4">
+                <Button route="" text="GET IN TOUCH" variant="black"/>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+    </>
   )
 }
 
