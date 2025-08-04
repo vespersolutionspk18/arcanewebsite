@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useState } from 'react';
-import Button from '@/components/Button';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 
@@ -43,7 +42,7 @@ const ContactPage = () => {
               GET IN TOUCH
             </h1>
             <h5 className="text-sm md:text-lg lg:text-xl text-white font-mono">
-              LET'S DISCUSS HOW WE CAN WORK TOGETHER
+              LET&apos;S DISCUSS HOW WE CAN WORK TOGETHER
             </h5>
           </div>
         </div>

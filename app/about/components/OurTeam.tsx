@@ -1,5 +1,4 @@
 import React from "react";
-import Image from "next/image";
 const OurTeam = () => {
   return (
     <div className="w-full flex flex-col gap-4 sm:gap-6 md:gap-8 lg:gap-10 items-start pt-12 pb-8 sm:pt-16 sm:pb-10 md:pt-24 md:pb-12 lg:pt-36 lg:pb-16 px-4 sm:px-6 md:px-8 lg:px-16 bg-black relative z-10">
