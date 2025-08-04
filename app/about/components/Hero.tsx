@@ -13,7 +13,7 @@ const AboutHero = () => {
         </h5>
           <div
           className="w-full h-screen bg-cover bg-center"
-          style={{ backgroundImage: "url('assets/aboutus.jpeg')" }}>
+          style={{ backgroundImage: "url('assets/about.jpeg')" }}>
 
           </div>
     </div>

@@ -11,22 +11,22 @@ const OurTeam = () => {
         OUR TEAM
       </h5>
       <h5 className="w-full lg:w-2/3 text-white text-2xl md:text-3xl lg:text-4xl font-sans tracking-tighter">
-        TALENTED INDIVIDUALS BEHIND __ SOLUCHANS
+        THE LEADERSHIP BEHIND ARCANE.
       </h5>
 
       <div className="flex flex-row justify-between gap-5 w-full">
-        <div className="w-1/3 font-mono text-white text-xl md:text-2xl">
-          LEADERSHIP
+        <div className="w-1/3 font-sans text-white text-xl md:text-2xl">
+       
         </div>
-        <div className="flex flex-col gap-7 w-2/3">
+        <div className="flex flex-col gap-7 w-1/2">
           <div className="flex flex-row gap-5">
             <div className="w-1/2 flex flex-col">
-              <div
-                className="w-full h-64 bg-cover bg-center"
-                style={{ backgroundImage: "url('assets/aboutus.jpeg')" }}>
+               <div
+                className="w-full aspect-square bg-cover bg-center"
+                style={{ backgroundImage: "url('assets/ourduty.jpeg')" }}>
               </div>
               <h5 className='font-mono mt-5 text-white text-xl md:text-2xl'>
-                Jill Khan
+                ALI CHEEMA
               </h5>
               <p className='font-sans text-white text-xl'>
                 CEO
@@ -34,14 +34,14 @@ const OurTeam = () => {
             </div>
             <div className="w-1/2 flex flex-col ">
               <div
-                className="w-full h-64 bg-cover bg-center"
-                style={{ backgroundImage: "url('assets/aboutus.jpeg')" }}>
+                className="w-full aspect-square bg-cover bg-center"
+                style={{ backgroundImage: "url('assets/ourduty.jpeg')" }}>
               </div>
               <h5 className='font-mono mt-5 text-white text-xl md:text-2xl'>
-                Jill Khan
+                RAMEEZ MASOUD FAROOQI
               </h5>
               <p className='font-sans text-white text-xl'>
-                CEO
+                COO
               </p>
             </div>
 
@@ -51,26 +51,26 @@ const OurTeam = () => {
           <div className="flex flex-row gap-5">
             <div className="w-1/2 flex flex-col">
               <div
-                className="w-full h-64 bg-cover bg-center"
-                style={{ backgroundImage: "url('assets/aboutus.jpeg')" }}>
+                className="w-full aspect-square bg-cover bg-center"
+                style={{ backgroundImage: "url('assets/ourduty.jpeg')" }}>
               </div>
               <h5 className='font-mono mt-5 text-white text-xl md:text-2xl'>
-                Jill Khan
+               YAO YU
               </h5>
               <p className='font-sans text-white text-xl'>
-                CEO
+                CFO
               </p>
             </div>
             <div className="w-1/2 flex flex-col ">
               <div
-                className="w-full h-64 bg-cover bg-center"
-                style={{ backgroundImage: "url('assets/aboutus.jpeg')" }}>
+                className="w-full aspect-square bg-cover bg-center"
+                style={{ backgroundImage: "url('assets/ourduty.jpeg')" }}>
               </div>
               <h5 className='font-mono mt-5 text-white text-xl md:text-2xl'>
-                Jill Khan
+                ??
               </h5>
               <p className='font-sans text-white text-xl'>
-                CEO
+               ??
               </p>
             </div>
 
