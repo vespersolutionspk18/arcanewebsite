@@ -64,11 +64,15 @@ const IndustriesWeServe = () => {
   ]
 
   const handleMouseEnter = (index: number) => {
-    setHoveredItem(index)
+    if (window.innerWidth >= 1024) { // Only on desktop
+      setHoveredItem(index)
+    }
   }
 
   const handleMouseLeave = () => {
-    setHoveredItem(null)
+    if (window.innerWidth >= 1024) { // Only on desktop
+      setHoveredItem(null)
+    }
   }
 
   const handleMouseMove = (e: React.MouseEvent) => {
