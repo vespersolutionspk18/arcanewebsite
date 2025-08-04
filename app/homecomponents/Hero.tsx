@@ -17,7 +17,7 @@ const Hero = () => {
             <div className="space-y-4">
                 <h5 className="text-sm md:text-lg lg:text-xl text-white font-mono mb-5" >A DIVERSIFIED GLOBAL ENTERPRISE ACROSS COMMODITY TRADING, REAL ESTATE, HOSPITALITY, TECHNOLOGY, AND TOBACCO MANUFACTURING</h5>
                 {/*<h5 className="text-sm md:text-lg lg:text-xl text-white font-mono">INTEGRATED. STRATEGIC. ARCANE.</h5>*/}
-                <Button text="EXPLORE OUR WORLD" variant="white" route="/aboutus" />
+                <Button text="EXPLORE OUR WORLD" variant="white" route="/about" />
             </div>
          </div>
      </div>

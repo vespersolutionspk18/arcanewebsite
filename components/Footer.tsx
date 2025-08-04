@@ -1,17 +1,42 @@
+"use client";
 import Image from 'next/image'
+import Link from 'next/link'
+import { useRouter, usePathname } from 'next/navigation'
 import React from 'react'
 
 const Footer = () => {
+  const router = useRouter()
+  const pathname = usePathname()
+
+  const handleSectorsClick = () => {
+    if (pathname === '/') {
+      const industriesSection = document.querySelector('.industries-section')
+      if (industriesSection) {
+        industriesSection.scrollIntoView({ behavior: 'smooth' })
+      }
+    } else {
+      router.push('/')
+      setTimeout(() => {
+        const industriesSection = document.querySelector('.industries-section')
+        if (industriesSection) {
+          industriesSection.scrollIntoView({ behavior: 'smooth' })
+        }
+      }, 100)
+    }
+  }
+
   return (
     <div className="flex flex-col border-t-white/10 border-t-[2px] w-full pb-6 md:pb-8 lg:pb-10 pt-8 md:pt-12 lg:pt-16 px-4 md:px-6 lg:px-10 bg-black text-white relative z-20">
-        <Image 
-          src="/assets/arcane.svg" 
-          alt="Arcane Global" 
-          width={0}
-          height={0}
-          sizes="60vw"
-          className="w-[80%] md:w-[60%] lg:w-[50%] h-auto"
-        />
+        <Link href="/">
+          <Image 
+            src="/assets/arcane.svg" 
+            alt="Arcane Global" 
+            width={0}
+            height={0}
+            sizes="60vw"
+            className="w-[80%] md:w-[60%] lg:w-[50%] h-auto cursor-pointer"
+          />
+        </Link>
         <div className="flex flex-col gap-8 md:gap-16 lg:gap-26 py-8 md:py-12 lg:py-16">
             <div className="flex flex-col lg:flex-row justify-between gap-8 lg:gap-0">
                 <div className="flex flex-col gap-6 lg:gap-10 w-full lg:w-[30%]">
@@ -26,11 +51,11 @@ const Footer = () => {
                     </div>
                 </div>
                 <div className="flex flex-col gap-2 lg:gap-3 w-full lg:w-[14%] text-2xl md:text-3xl lg:text-4xl font-mono">
-                    <a className="cursor-pointer hover:text-gray-300 transition-colors">HOME</a>
-                    <a className="cursor-pointer hover:text-gray-300 transition-colors">ABOUT</a>
-                    <a className="cursor-pointer hover:text-gray-300 transition-colors">SECTORS</a>
+                    <Link href="/" className="cursor-pointer hover:text-gray-300 transition-colors">HOME</Link>
+                    <Link href="/about" className="cursor-pointer hover:text-gray-300 transition-colors">ABOUT</Link>
+                    <a onClick={handleSectorsClick} className="cursor-pointer hover:text-gray-300 transition-colors">SECTORS</a>
                     <a className="cursor-pointer hover:text-gray-300 transition-colors">CAREERS</a>
-                    <a className="cursor-pointer hover:text-gray-300 transition-colors">CONTACT</a>
+                    <Link href="/contact" className="cursor-pointer hover:text-gray-300 transition-colors">CONTACT</Link>
                 </div>
             </div>
         </div>

@@ -1,14 +1,38 @@
 "use client";
 import Button from '@/components/Button'
 import Image from 'next/image'
+import Link from 'next/link'
+import { useRouter, usePathname } from 'next/navigation'
 import React, { useState, useEffect } from 'react'
 import { HiMenu, HiX } from 'react-icons/hi'
 
 const Header = () => {
+  const router = useRouter()
+  const pathname = usePathname()
   const [leftDarkMode, setLeftDarkMode] = useState(false)
   const [centerDarkMode, setCenterDarkMode] = useState(false)
   const [rightDarkMode, setRightDarkMode] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+
+  const handleSectorsClick = () => {
+    setIsMobileMenuOpen(false)
+    if (pathname === '/') {
+      // If already on home page, just scroll to the industries section
+      const industriesSection = document.querySelector('.industries-section')
+      if (industriesSection) {
+        industriesSection.scrollIntoView({ behavior: 'smooth' })
+      }
+    } else {
+      // Navigate to home page then scroll
+      router.push('/')
+      setTimeout(() => {
+        const industriesSection = document.querySelector('.industries-section')
+        if (industriesSection) {
+          industriesSection.scrollIntoView({ behavior: 'smooth' })
+        }
+      }, 100)
+    }
+  }
 
   useEffect(() => {
     const detectPointBrightness = (x: number, y: number) => {
@@ -199,24 +223,24 @@ const Header = () => {
           0 4px 12px rgba(0,0,0,0.15)
         `
       }}>
-         <div data-logo className="lg:w-1/5 w-auto transition-all duration-150 ease-out">
+         <Link href="/" data-logo className="lg:w-1/5 w-auto transition-all duration-150 ease-out">
            <Image 
              src={leftDarkMode ? "/assets/arcaneb.svg" : "/assets/arcane.svg"} 
              alt="Arcane Holdings" 
              width={140} 
              height={100} 
            />
-         </div>
+         </Link>
          
          {/* Desktop Navigation */}
           <div data-nav className={`hidden lg:flex w-3/5 flex-row gap-10 font-medium text-md justify-center transition-colors duration-150 ease-out ${centerDarkMode ? 'text-black' : 'text-white'}`}>
-              <a className={`cursor-pointer transition-colors duration-100 ease-out flex items-center gap-1 ${centerDarkMode ? 'hover:text-gray-600' : 'hover:text-gray-300'}`}>
+              <Link href="/" className={`cursor-pointer transition-colors duration-100 ease-out flex items-center gap-1 ${centerDarkMode ? 'hover:text-gray-600' : 'hover:text-gray-300'}`}>
                 Home
-              </a>
-              <a className={`cursor-pointer transition-colors duration-100 ease-out flex items-center gap-1 ${centerDarkMode ? 'hover:text-gray-600' : 'hover:text-gray-300'}`}>
+              </Link>
+              <Link href="/about" className={`cursor-pointer transition-colors duration-100 ease-out flex items-center gap-1 ${centerDarkMode ? 'hover:text-gray-600' : 'hover:text-gray-300'}`}>
                 About
-              </a>
-              <a className={`cursor-pointer transition-colors duration-100 ease-out flex items-center gap-1 ${centerDarkMode ? 'hover:text-gray-600' : 'hover:text-gray-300'}`}>
+              </Link>
+              <a onClick={handleSectorsClick} className={`cursor-pointer transition-colors duration-100 ease-out flex items-center gap-1 ${centerDarkMode ? 'hover:text-gray-600' : 'hover:text-gray-300'}`}>
                 Sectors
                 <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
@@ -229,7 +253,7 @@ const Header = () => {
 
           {/* Desktop Button */}
           <div data-button className="hidden lg:flex w-1/5 flex-row gap-3 justify-end transition-all duration-150 ease-out">
-            <Button route="" text="GET IN TOUCH" variant={rightDarkMode ? "black" : "white"}/>
+            <Button route="/contact" text="GET IN TOUCH" variant={rightDarkMode ? "black" : "white"}/>
           </div>
 
           {/* Mobile Menu Button */}
@@ -249,13 +273,13 @@ const Header = () => {
           <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" onClick={() => setIsMobileMenuOpen(false)} />
           <div className="absolute top-16 left-2 right-2 bg-white rounded-lg shadow-2xl overflow-hidden">
             <div className="flex flex-col py-4">
-              <a className="px-6 py-4 text-black hover:bg-gray-100 transition-colors cursor-pointer border-b border-gray-100">
+              <Link href="/" onClick={() => setIsMobileMenuOpen(false)} className="px-6 py-4 text-black hover:bg-gray-100 transition-colors cursor-pointer border-b border-gray-100">
                 Home
-              </a>
-              <a className="px-6 py-4 text-black hover:bg-gray-100 transition-colors cursor-pointer border-b border-gray-100">
+              </Link>
+              <Link href="/about" onClick={() => setIsMobileMenuOpen(false)} className="px-6 py-4 text-black hover:bg-gray-100 transition-colors cursor-pointer border-b border-gray-100">
                 About
-              </a>
-              <a className="px-6 py-4 text-black hover:bg-gray-100 transition-colors cursor-pointer border-b border-gray-100 flex items-center justify-between">
+              </Link>
+              <a onClick={handleSectorsClick} className="px-6 py-4 text-black hover:bg-gray-100 transition-colors cursor-pointer border-b border-gray-100 flex items-center justify-between">
                 Sectors
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
@@ -265,7 +289,7 @@ const Header = () => {
                 Careers
               </a>
               <div className="px-6 py-4">
-                <Button route="" text="GET IN TOUCH" variant="black"/>
+                <Button route="/contact" text="GET IN TOUCH" variant="black"/>
               </div>
             </div>
           </div>

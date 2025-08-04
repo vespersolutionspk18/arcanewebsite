@@ -101,7 +101,7 @@ const IndustriesWeServe = () => {
 
 
   return (
-    <div className="flex flex-col w-full pb-8 md:pb-16 lg:pb-26 pt-8 md:pt-12 lg:pt-16 px-4 md:px-8 lg:px-16 bg-black text-white relative z-10">
+    <div className="industries-section flex flex-col w-full pb-8 md:pb-16 lg:pb-26 pt-8 md:pt-12 lg:pt-16 px-4 md:px-8 lg:px-16 bg-black text-white relative z-10">
         <h5 className="font-mono text-xl md:text-2xl mb-6 lg:mb-10">OUR SIX PILLARS</h5>
         {industries.map((industry) => (
           <div 
