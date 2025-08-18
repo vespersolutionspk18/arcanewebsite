@@ -55,7 +55,7 @@ const ContactPage = () => {
             <div className="text-black space-y-6">
               <div>
                 <h6 className="font-mono text-md mb-2">GLOBAL HEADQUARTERS</h6>
-                <p className="text-lg">Dubai, United Arab Emirates</p>
+                <p className="text-lg">512, 5th Avenue, 17th Floor New York, NY 10175, United States</p>
               </div>
               <div>
                 <h6 className="font-mono text-md mb-2">EMAIL</h6>
@@ -63,7 +63,7 @@ const ContactPage = () => {
               </div>
               <div>
                 <h6 className="font-mono text-md mb-2">PHONE</h6>
-                <p className="text-lg">+971 4 XXX XXXX</p>
+                <p className="text-lg">(347) 905-3563</p>
               </div>
             </div>
           </div>

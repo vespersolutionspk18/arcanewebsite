@@ -7,7 +7,8 @@ const OurDutyAfter = () => {
         <div className="flex flex-col gap-3 lg:gap-5 w-full lg:w-2/3">
           <h5 className="font-mono text-lg lg:text-xl">OPERATIONAL EXCELLENCE</h5>
           <p className="text-base lg:text-lg">
-            We maintain an obsession with perfection in every detail, from complex trade settlements to seamless IoT device functionality. Our commitment to mastery in execution ensures superior performance across all divisions.
+           We ensure exceptional results, from complex trade settlements to seamless IoT device functionality. Our commitment to mastery in execution ensures superior performance across all divisions.
+
           </p>
         </div>
         <h5 className="font-mono text-lg lg:text-xl">INTEGRATED INTELLIGENCE</h5>

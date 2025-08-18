@@ -42,11 +42,11 @@ const Footer = () => {
                 <div className="flex flex-col gap-6 lg:gap-10 w-full lg:w-[30%]">
                     <div className="flex flex-col">
                         <h5 className="font-mono text-white text-lg md:text-xl lg:text-2xl">ADDRESS:</h5>
-                        <p className="text-base lg:text-lg">123 Main St, Detroit, MI 12345</p>
+                        <p className="text-base lg:text-lg">512, 5th Avenue, 17th Floor New York, NY 10175, United States</p>
                     </div>
                     <div className="flex flex-col">
                         <h5 className="font-mono text-white text-lg md:text-xl lg:text-2xl">CONTACT:</h5>
-                        <p className="text-base lg:text-lg">+1_(123)_555-7890</p>
+                        <p className="text-base lg:text-lg">(347) 905-3563</p>
                         <p className="text-base lg:text-lg">info@arcaneglobal.group</p>
                     </div>
                 </div>

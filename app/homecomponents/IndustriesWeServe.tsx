@@ -17,7 +17,7 @@ const IndustriesWeServe = () => {
       id: 1,
       number: "01",
       title: "ARCANE TRADING",
-      description: "We are a UAE-based global commodity trading company specializing in the sourcing and distribution of rare earth minerals such as copper and high-demand agricultural commodities including sugar and chilies. Leveraging strong partnerships across Brazil, Pakistan, and China, we facilitate efficient, reliable, and large-scale trade flows to meet the evolving needs of international markets.",
+      description: "We are a UAE-based global commodity trading company. We specialize in the sourcing and distribution of rare earth minerals. Products such as copper and high-demand agricultural commodities; including sugar and chilies. Leveraging strong partnerships across Brazil, Pakistan, and China. We facilitate efficient, reliable, and large-scale trade flows to meet the evolving needs of international markets.",
       image: "/assets/trading.jpeg",
       link: "/commodities-trading"
     },
@@ -33,7 +33,7 @@ const IndustriesWeServe = () => {
       id: 3,
       number: "03",
       title: "ARCANE HOSPITALITY", 
-      description: "Arcane Hospitality owns and operates a portfolio of branded hotels across the United States, with a proven track record of operational excellence. We specialize in maximizing profitability by maintaining low cost per occupied room (CPOR) while delivering exceptional guest experiences. Our Marriott hotels in New York consistently rank among the highest-rated in the region, reflecting our commitment to quality, efficiency, and guest satisfaction.",
+      description: "Arcane Hospitality owns and operates a portfolio of branded hotels across the United States, upholding a track record of operational excellence. We specialize in maximizing profitability by maintaining low cost per occupied room (CPOR) while delivering exceptional guest experiences. Our Marriott hotels in New York consistently rank among the highest-rated in the region, reflecting our commitment to quality, efficiency, and guest satisfaction.",
       image: "/assets/hospitality.jpeg",
       link: "/hospitality"
     },
@@ -57,7 +57,7 @@ const IndustriesWeServe = () => {
       id: 6,
       number: "06",
       title: "ARCANE TOBACCO MANUFACTURING",
-      description: "Arcane Tobacco Manufacturing is committed to delivering high-quality tobacco products through a process rooted in integrity, compliance, and precision. We prioritize due diligence at every stage; from sourcing premium raw materials to ensuring full regulatory adherence across markets. With a strong focus on responsible procurement and quality control, we uphold the highest industry standards to serve our partners and customers with reliability and transparency.",
+      description: "Arcane Tobacco Manufacturing is committed to delivering high-quality tobacco products through a process rooted in integrity, compliance, and precision. We prioritize due diligence at every stage; from sourcing premium raw materials to ensuring full regulatory adherence across markets. With a strong focus on responsible procurement and quality control. We uphold the highest industry standards to serve our partners and customers with reliability and transparency.",
       image: "/assets/tobacco.jpg", 
       link: "/tobacco"
     }
